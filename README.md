@@ -65,51 +65,61 @@ There are sensors on the device that collect data to train a machine learning al
 
 ## Usage
 ### Prerequisites
-- An S3 bucket to store data which are part of either the landing, trusted, or curated zones
+- An S3 bucket to store data categorized into either the landing, trusted, or curated zone
 - Landing zone S3 buckets to ingest raw customer, step trainer, and accelerometer JSON files
 - IAM permissions for S3, Glue, and Athena
 - Database specific for project's Glue tables, e.g. `project`
 
-### To create Customer Landing Zone
-1. a. Run `customer_landing.sql` script in Athena to create `customer_landing` table
-
-### To create Accelerometer Landing Zone
-1. b. Run `accelerometer_landing.sql` script in Athena to create `accelerometer_landing` table
-
-### To create Step Trainer Landing Zone
-1. c. Run `step_trainer_landing.sql` script in Athena to create `step_trainer_landing` table
-
-### To create Customer Trusted Zone
-2. Run `Customer_Landing_to_Trusted.py` script in Glue to create `customer_trusted` table
-
-### To create Accelerometer Trusted Zone
-3. Run `Accelerometer_Landing_to_Trusted.py` script in Glue to create `accelerometer_trusted` table
-
-### To create Customer Curated Zone
-4. Run `Customer_Trusted_to_Curated.py` script in Glue to create `customer_curated` table
-
-### To create Step Trainer Curated Zone
-5. Run `Step_Trainer_Landing_to_Curated.py` script in Glue to create `step_trainer_curated` table
-
-### To create Machine Learning Curated Zone
-6. Run `Machine_Learning_Curated.py` script in Glue to create `machine_learning_curated` table
-
-## Solution
-
-### Technical Discussion
-Our data lakehouse solution provides a unified platform for data storage and processing. It has the flexibility of a data lake to store various data types and the structure and performance of a data warehouse for reliable analytics.
-
+### Outline
 The solution is built on AWS and uses the following services:
 - S3 for data storage
 - Glue for data processing
 - Athena for querying data
 
-I have provided five Python scripts which are run in Glue to create the tables in the data lakehouse solution. The scripts are run in the following order:
+My data lakehouse solution is comprised of five Python scripts which are run in AWS Glue. The scripts are run in the following order:
 1. `Customer_Landing_to_Trusted.py`: This script transfers customer data from the 'landing' to 'trusted' zones. It filters for customers who have agreed to share data with researchers.
 2. `Accelerometer_Landing_to_Trusted.py`: This script transfers accelerometer data from the 'landing' to 'trusted' zones. It filters for Accelerometer readings from customers who have agreed to share data with researchers.
 3. `Customer_Trusted_to_Curated.py`: This script transfers customer data from the 'trusted' to 'curated' zones. It filters for customers with Accelerometer readings and have agreed to share data with researchers.
 4. `Step_Trainer_Landing_to_Curated.py`: This script transfers step trainer data from the 'landing' to 'curated' zones. It filters for curated customers with Step Trainer readings.
 5. `Machine_Learning_Curated.py`: This script combines Step Trainer and Accelerometer data from the 'curated' zone into a single table to train a machine learning model.
+
+### Directions
+#### To create Customer Landing Zone
+1. a. Run `customer_landing.sql` script in Athena to create `customer_landing` table
+
+#### To create Accelerometer Landing Zone
+1. b. Run `accelerometer_landing.sql` script in Athena to create `accelerometer_landing` table
+
+#### To create Step Trainer Landing Zone
+1. c. Run `step_trainer_landing.sql` script in Athena to create `step_trainer_landing` table
+
+#### To create Customer Trusted Zone
+2. Run `Customer_Landing_to_Trusted.py` script in Glue to create `customer_trusted` table
+
+#### To create Accelerometer Trusted Zone
+3. Run `Accelerometer_Landing_to_Trusted.py` script in Glue to create `accelerometer_trusted` table
+
+#### To create Customer Curated Zone
+4. Run `Customer_Trusted_to_Curated.py` script in Glue to create `customer_curated` table
+
+#### To create Step Trainer Curated Zone
+5. Run `Step_Trainer_Landing_to_Curated.py` script in Glue to create `step_trainer_curated` table
+
+#### To create Machine Learning Curated Zone
+6. Run `Machine_Learning_Curated.py` script in Glue to create `machine_learning_curated` table
+
+## Solution
+
+### Technical Discussion
+In a data lake architecture, the use of landing, trusted, and curated zones serves specific purposes that can significantly enhance the quality, reliability, and usability.
+
+- Landing Zone: The landing zone is often the first point of contact for raw data as it enters the data lake. It serves as a staging area where data from various sources is collected, often in its original format. This zone provides a place to accumulate data before any substantial processing occurs. This allows for flexibility, as the original raw data remains intact and available for different types of analysis or processing in the future.
+
+- Trusted Zone: After data has been landed, it may then be processed and moved to the trusted zone. In this zone, data is cleansed, validated, and often transformed into a structured format. This can include operations like deduplication, handling missing or incorrect data, and ensuring our customers have approved their data to be used for research purposes. The trusted zone is designed to be a source of reliable data for further analysis.
+
+- Curated Zone: The curated zone is where data is further transformed, often to meet the specific needs of a particular analysis, application, or group of users. This may involve operations like aggregating data, creating derived metrics, or combining multiple datasets. The curated zone should provide data that's ready-to-use for your specific data-driven applications and analyses.
+
+In essence, these three zones facilitate a layered approach to data management and preparation. Each stage adds value to the data, making it increasingly reliable and useful for our specific needs. This strategy also aids in maintaining data quality, tracking data lineage, and enabling efficient and versatile data exploration and analysis.
 
 ### Business Discussion
 Our data lakehouse solution is designed to give STEDI a robust and flexible data infrastructure that allows us to store, clean, and transform vast amounts of data.
