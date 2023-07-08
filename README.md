@@ -1,6 +1,6 @@
 # AWS-Data-Lakehouse
 - Project completed as part of Udacity's Data Engineering with AWS Nanodegree Program
-- Project delivered in June 2023
+- Project delivered in July 2023
 - Repository includes 11 files:
     * A `accelerometer_landing.sql` script
     * A `customer_landing.sql` script
