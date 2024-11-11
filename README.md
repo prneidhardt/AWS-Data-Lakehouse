@@ -122,14 +122,12 @@ In a data lake architecture, the use of landing, trusted, and curated zones serv
 In essence, these three zones facilitate a layered approach to data management and preparation. Each stage adds value to the data, making it increasingly reliable and useful for our specific needs. This strategy also aids in maintaining data quality, tracking data lineage, and enabling efficient and versatile data exploration and analysis.
 
 ### Business Discussion
-Our data lakehouse solution is designed to give STEDI a robust and flexible data infrastructure that allows us to store, clean, and transform vast amounts of data.
+My data lakehouse solution is designed to give STEDI a robust and flexible data infrastructure that allows them to store, clean, and transform vast amounts of data.
 
-Firstly, my solution provides scalability and cost efficiency by leveraging Amazon S3 for storage, enabling us to store large amounts of diverse data cost-effectively. We can scale our storage up or down based on our needs, and we only pay for what we use.
+First, my solution provides scalability and cost efficiency by leveraging Amazon S3 for storage, enabling them to store large amounts of diverse data cost-effectively. They can scale storage up or down based on the business's needs, and they only pay for what they use.
 
-Secondly, by using AWS Glue, a fully managed extract, transform, and load (ETL) service, we are able to clean, normalize, and relocate our data. This step is crucial for preparing our data for high-quality analytics and machine learning.
+Second, by using AWS Glue, a fully managed extract, transform, and load (ETL) service, they are able to clean, normalize, and relocate data on an adhoc basis. This structured data is then ready for downstream use by STEDI's data scientists for exploratory data analysis or to train machine learning models.
 
-The structured data is then ready for downstream use by our data scientists for exploratory data analysis or to train machine learning models.
+Moreover, my solution provides a single source of truth, improving data quality and consistency. This is particularly beneficial when dealing with complex datasets as it simplifies the process of data management and increases efficiency.
 
-Moreover, my solution provides a single source of truth for our data, improving data quality and consistency. This is particularly beneficial when dealing with complex datasets as it simplifies the process of data management and increases efficiency.
-
-Overall, my data lakehouse solution gives us the power to make data-driven decisions, enhancing STEDI's competitive advantage in the market, improving our products, and delivering a superior customer experience.
+Overall, my data lakehouse solution gives STEDI the power to make data-driven decisions, improve their products, and deliver a superior customer experience.
